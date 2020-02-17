@@ -19,7 +19,7 @@ export const AppProvider = (props) => {
   useEffect(() => {
     const fetchCoins = async () => {
       const coinList = (await cc.coinList()).Data;
-      setCoins([coinList]);
+      setCoins(coinList);
     };
     fetchCoins();
   }, []);
@@ -31,8 +31,6 @@ export const AppProvider = (props) => {
       JSON.stringify({ page: 'settings', firstVisit: false }),
     );
   };
-
-  console.log(coins);
 
   return (
     <AppContext.Provider value={{
