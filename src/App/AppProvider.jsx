@@ -32,7 +32,7 @@ export const AppProvider = (props) => {
     );
   };
 
-  console.log(page);
+  console.log(coins);
 
   return (
     <AppContext.Provider value={{
