@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { AppContext } from './AppProvider';
 
@@ -28,7 +29,7 @@ function ControlButton({ name, active }) {
   return (
     <ControlButtonElem
       active={page.page === name}
-      onClick={() => setPage({ page: name })}
+      onClick={() => setPage({ page: name, firstVisit: true })}
     >
       {name}
     </ControlButtonElem>
@@ -45,3 +46,13 @@ export default function AppBar() {
     </Bar>
   );
 }
+
+ControlButton.defaultProps = {
+  name: '',
+  active: false,
+};
+
+ControlButton.propTypes = {
+  name: PropTypes.string,
+  active: PropTypes.bool,
+};

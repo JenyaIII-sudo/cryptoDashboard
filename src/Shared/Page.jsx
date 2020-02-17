@@ -5,11 +5,13 @@ import { AppContext } from '../App/AppProvider';
 export default function Page({ name, children }) {
   const context = useContext(AppContext);
   const { page } = context;
-  if (page !== name) {
+
+  if (page.page !== name) {
     return null;
   }
   return <div>{children}</div>;
 }
+
 
 Page.defaultProps = {
   children: [],
