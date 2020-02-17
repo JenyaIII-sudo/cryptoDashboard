@@ -18,7 +18,14 @@ CoinImage.defaultProps = {
   CoinSymbol: '',
 };
 CoinImage.propTypes = {
-  coin: PropTypes.string,
+  coin: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+    ]),
+  ),
   style: PropTypes.string,
   ImageUrl: PropTypes.string,
   CoinSymbol: PropTypes.string,
