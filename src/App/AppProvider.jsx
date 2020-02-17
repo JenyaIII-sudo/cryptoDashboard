@@ -15,14 +15,14 @@ export const AppProvider = (props) => {
   }
   const [page, setPage] = useState({ ...savedSettings() });
 
+  const fetchCoins = async () => {
+    const coinList = (await cc.coinList()).Data;
+    setPage({ coinList });
+  };
+
   useEffect(() => {
-    const fetchCoins = async () => {
-      const coinList = (await cc.coinList()).Data;
-      setPage({ coinList });
-      console.log(page);
-    };
     fetchCoins();
-  });
+  }, []);
 
   const confirmFavorites = () => {
     setPage({ page: 'dashboard', firstVisit: false });
@@ -31,6 +31,8 @@ export const AppProvider = (props) => {
       JSON.stringify({ page: 'settings', firstVisit: false }),
     );
   };
+
+  console.log(page);
 
   return (
     <AppContext.Provider value={{ page, setPage, confirmFavorites }}>
