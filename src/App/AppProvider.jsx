@@ -20,6 +20,7 @@ export const AppProvider = (props) => {
   const [page, setPage] = useState({ ...savedSettings() });
   const [coins, setCoins] = useState();
   const [favorites, setFavorites] = useState(['BTC', 'ETH', 'XMR', 'DOGE']);
+  const [filteredCoins, setFilteredCoins] = useState();
 
   const returnData = () => {
     const localData = JSON.parse(localStorage.getItem('coins'));
@@ -70,6 +71,7 @@ export const AppProvider = (props) => {
       addCoin,
       removeCoin,
       isInFavorites,
+      setFilteredCoins,
     }}
     >
       {children}
