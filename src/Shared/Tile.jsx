@@ -6,19 +6,20 @@ import {
   redBoxShadow,
 } from './Styles';
 
-const Tile = styled.div`
+export const Tile = styled.div`
   ${subtleBoxShadow};
   ${lightBlueBackground};
   padding: 10px;
-  cursor: pointer;
-  transition: 0.1s;
+`;
+
+export const SelectableTile = styled(Tile)`
   &:hover {
-    transition: 0.1s;
-    ${greenBoxShadow};
+    cursor: pointer;
+    ${greenBoxShadow}
   }
 `;
 
-export const DeletableTile = styled(Tile)`
+export const DeletableTile = styled(SelectableTile)`
 &:hover {
   cursor: pointer;
   ${redBoxShadow}
@@ -27,7 +28,5 @@ export const DeletableTile = styled(Tile)`
 
 export const DisabledTile = styled(Tile)`
 pointer-events: none;
-opacity: 0.4
+opacity: 0.4;
 `;
-
-export default Tile;
