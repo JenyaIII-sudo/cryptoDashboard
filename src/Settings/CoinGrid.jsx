@@ -10,19 +10,19 @@ grid-gap: 15px;
 margin-top: 40px;
 `;
 
-export default function CoinGrid() {
+export default function CoinGrid({ topSection }) {
   const context = useContext(AppContext);
   const { coins } = context;
   console.log(coins);
 
-  function getCoinToDisplay(coinList) {
-    return Object.keys(coinList).slice(0, 100);
+  function getCoinToDisplay(coinList, topSection) {
+    return Object.keys(coinList).slice(0, topSection ? 10 : 100);
   }
 
   return (
     <CoinGridStyled>
-      {getCoinToDisplay(coins).map((coinKey) => (
-        <CoinTile coinKey={coinKey} key={coinKey} />
+      {getCoinToDisplay(coins, topSection).map((coinKey) => (
+        <CoinTile topSection={topSection} coinKey={coinKey} key={coinKey} />
       ))}
     </CoinGridStyled>
   );
