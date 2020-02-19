@@ -72,6 +72,7 @@ export const AppProvider = (props) => {
       removeCoin,
       isInFavorites,
       setFilteredCoins,
+      filteredCoins,
     }}
     >
       {children}
