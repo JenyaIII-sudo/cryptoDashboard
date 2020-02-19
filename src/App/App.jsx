@@ -5,6 +5,7 @@ import AppBar from './AppBar';
 import { AppProvider } from './AppProvider';
 import Settings from '../Settings/index';
 import Content from '../Shared/Content';
+import Dashboard from '../Dashboard/Dashboard';
 
 const App = () => (
   <AppLayout>
@@ -12,6 +13,7 @@ const App = () => (
       <AppBar />
       <Content>
         <Settings />
+        <Dashboard />
       </Content>
     </AppProvider>
   </AppLayout>

@@ -42,6 +42,10 @@ const Search = () => {
 
   const filterCoins = (e, filteredCoins, coin) => {
     const inputValue = e.target.value;
+    if (!inputValue) {
+      setFilteredCoins(null);
+      return;
+    }
     handleFilter(inputValue, coin, filteredCoins);
   };
 

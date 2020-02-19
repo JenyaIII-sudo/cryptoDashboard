@@ -21,25 +21,53 @@ export const AppProvider = (props) => {
   const [coins, setCoins] = useState();
   const [favorites, setFavorites] = useState(['BTC', 'ETH', 'XMR', 'DOGE']);
   const [filteredCoins, setFilteredCoins] = useState();
+  const [pricesState, setPricesState] = useState([]);
+  // const [returnPricesData, setReturnPricesData] = useState([]);
 
-  const returnData = () => {
+  const returnLocalData = () => {
     const localData = JSON.parse(localStorage.getItem('coins'));
     if (localData) {
       setFavorites(localData);
     }
   };
 
+  const fetchCoins = async () => {
+    const coinList = (await cc.coinList()).Data;
+    setCoins(coinList);
+  };
+
+  const pricesFunc = async () => {
+    const returnData = [];
+    for (let i = 0; i < favorites.length; i += 1) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        let priceData = await cc.priceFull(favorites[i], 'USD');
+        returnData.push(priceData);
+      } catch (e) {
+        console.log('Fetch price error: ', e);
+      }
+    }
+    return returnData;
+  };
+
+  const fetchPrices = async () => {
+    // console.log('PRICE!!!!!!');
+    // if (page.firstVisit) return;
+    const prices = await pricesFunc();
+    console.log('PRICE!!!!!!', prices);
+    setPricesState(prices);
+  };
+
   useEffect(() => {
-    const fetchCoins = async () => {
-      const coinList = (await cc.coinList()).Data;
-      setCoins(coinList);
-    };
     fetchCoins();
-    returnData();
+    fetchPrices();
+    returnLocalData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const confirmFavorites = () => {
+  const confirmFavorites = async () => {
     setPage({ page: 'dashboard', firstVisit: false });
+    fetchPrices();
     localStorage.setItem(
       'coins',
       JSON.stringify(favorites),
@@ -57,6 +85,7 @@ export const AppProvider = (props) => {
   const removeCoin = (key) => {
     const favoritesCoin = [...favorites];
     setFavorites(getPull(favoritesCoin, key));
+    setPricesState(getPull(favoritesCoin, key));
   };
 
   const isInFavorites = (key) => _.includes(favorites, key);
@@ -73,6 +102,7 @@ export const AppProvider = (props) => {
       isInFavorites,
       setFilteredCoins,
       filteredCoins,
+      pricesState,
     }}
     >
       {children}
